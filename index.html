@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
+
+
+
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore-compat.js"></script>
+    
+    
+
+    <title>new</title>
+    <link rel="stylesheet" href="new.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+
+  </head>
+  <body>
+
+
+ 
+
+
+    <div class="container">
+      <!-- قسم المصادقة -->
+      <div class="auth-section" id="authSection">
+        <h1 style="text-align: center; margin-bottom: 1.5rem">
+          <i
+            class="fa-solid fa-users-gear"
+            style="font-size: 2rem; color: rgb(75, 75, 238)"
+          ></i>
+          اهلا بكم في MUHASIBI
+        </h1>
+
+        <h2 style="text-align: center; margin-bottom: 1.5rem">
+          <i
+            class="fas fa-id-card"
+            style="font-size: 2rem; color: rgb(244, 96, 131)"
+          ></i>
+          تسجيل الدخول
+        </h2>
+        <div class="input-group">
+          <input type="email" id="email" placeholder="البريد الإلكتروني" />
+        </div>
+        <div class="input-group">
+          <input type="password" id="password" placeholder="كلمة المرور" />
+        </div>
+        <div style="display: flex; gap: 1rem; margin-top: 1.5rem">
+          <button class="btn btn-primary" onclick="login()">
+            <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+          </button>
+
+          <button class="btn btn-success" onclick="register()">
+            <i class="fas fa-user-plus"></i> تسجيل جديد
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- قسم الصفحة الرئيسية -->
+<div class="dashboard" id="dashboard">
+
+
+
+  <!-- From Uiverse.io by Nawsome --> 
+  <div class="loader-container" id="loader">
+    <h1 style="color: rgb(113, 113, 255); ">MUHASIBI...</h1>
+    <div class="typewriter">
+      <div class="paper"></div>
+      <div class="slide"><i></i></div>
+      <div class="keyboard"></div>
+    </div>
+  </div>
+  
+ 
+<div class="page2" >
+
+
+
+
+
+
+
+
+
+<div class="menu" id="menu">
+  <div class="min-bar">
+
+    <button class="btn2" onclick="showContent1()"><i class="fa-solid fa-house"></i></button>
+    <button class="btn2" onclick="showContent2()"><i class="fa-solid fa-circle-user"></i></button>
+    <button class="btn2" onclick="showContent('content3')"><i class="fa-solid fa-calendar-days"></i></button>
+    <button class="btn2" onclick="showContent('content4')"><i class="fa-solid fa-box"></i></button>
+
+  </div>
+
+      
+      <div id="content2" class="menu2">
+
+      <button class="btn " onclick="addCustomer()" >
+        <i class="fa-solid fa-user-plus"></i>
+      </button>
+      <div class="sersh"><input type="text" id="searchInput" placeholder="ابحث هنا..." oninput="searchList()"></div>
+        <ul class="customer-list" id="customersList"></ul>
+
+      
+    <li class="logout" onclick="logout()" ><i class="fa-solid fa-right-from-bracket"></i>
+     </li>
+
+
+
+
+
+      </div>
+
+
+
+
+
+
+</div>
+
+
+
+
+<div class="openmenuclick">
+  <li class="logo" ><a href="#"><i class="fa-solid fa-bars" id="openmenu"  onclick="openmenu()"></i><p>MUHASIBI</p></a></li>
+
+</div>
+
+
+
+
+
+
+
+
+<div class="state" id="state">
+
+
+
+  <!-- المعلومات الرئيسية -->
+  <div id="content1" class="data-info" >
+    <div class="box">
+      <i class="fa-solid fa-user"></i>
+      <div class="data">
+        <p>عدد الزبائن</p>
+        <span id="counter">⏳</span>
+      </div>
+    </div>
+    <div class="box">
+      <i class="fa-solid fa-money-bill"></i>
+      <div class="data">
+        <p>اجمالي الديون</p>
+        <span id="counter2"></span> ليرة</span>
+      </div>
+    </div>
+    <div class="box">
+      <i class="fa-solid fa-user"></i>
+      <div class="data">
+        <p>user</p>
+        <span>100</span>
+      </div>
+    </div>
+
+
+      </div>
+
+
+
+       <!-- نافذة إضافة زبون -->
+  <div class="modal" id="addCustomerModal">
+    <div class="modal-content">
+        <h3><i class="fas fa-user-plus"></i> إضافة زبون جديد</h3>
+        <div class="input-group">
+            <input type="text" id="newCustomerName" placeholder="اسم الزبون الجديد">
+        </div>
+        <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+            <button class="btn btn-primary" onclick="addCustomer()">
+                <i class="fas fa-save"></i> اضافة
+            </button>
+            <button class="btn btn-danger" onclick="closeAddCustomerModal()">
+                <i class="fas fa-times"></i> إلغاء
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+            <!-- المحتوى الرئيسي -->
+            <div class="main-content" >
+              <div id="customerDetails" style="display: none;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                      <h3 id="selectedCustomerName" ></h3>
+                      <p class="balance" id="balance">:المجموع</p>
+                      <button class="btn1" onclick="closeCustomerDetails()">
+                          <i class="fas fa-times"></i>
+                      </button>
+                  </div>
+                  
+                  <div class="input-group">
+                      <input type="number" id="amountInput" placeholder="المبلغ" 
+                             onkeypress="handleEnter(event)">
+                             <select name="" id="">
+                              <option value=""></option>
+                              <option value=""></option>
+                              <option value=""></option>
+                             </select>
+                  </div>
+                  
+                  <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                      <button class="btn btn-success" onclick="addTransaction('credit')">
+                          <i class="fas fa-plus"></i> إضافة دين
+                      </button>
+                      <button class="btn btn-danger" onclick="addTransaction('debit')">
+                          <i class="fas fa-minus"></i> خصم دين
+                      </button>
+                 
+                  </div>
+                  
+                  <button onclick="printDiv('transactionsList')" class="btn2"   style="margin-bottom: 12px;"><i class="fa-solid fa-print"></i></button>
+                  <h4><i class="fas fa-history"></i> سجل المعاملات</h4>
+                  <button class="btn" onclick="deleteALLTransaction('transaction-id')" style="margin-top: 10px;">حذف المعاملة</button>
+
+                  <ul id="transactionsList"></ul>
+              </div>
+          </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  
+  
+  </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+    
+<script>
+
+//زر القائمة
+function openmenu() {
+  const div = document.getElementById("menu");
+  const openmenu = document.getElementById("openmenu");
+
+  div.style.display = (div.style.display === "none" || div.style.display === "") ? "block" : "none";
+
+
+
+        // عند النقر في أي مكان خارج القائمة، يتم إخفاؤها
+        document.addEventListener("click", (event) => {
+            if (!menu.contains(event.target) && event.target !== openmenu) {
+                menu.style.display = "none";
+            }
+        });
+
+}
+
+
+//اليحث عن زبون
+function searchList() {
+  const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+  const items = document.querySelectorAll('#customersList li');
+  
+  items.forEach(item => {
+    const text = item.textContent.toLowerCase();
+    if (text.includes(searchTerm)) {
+      item.style.display = ''; // يظهر العنصر إذا كان يحتوي على النص المدخل
+    } else {
+      item.style.display = 'none'; // يخفي العنصر إذا كان لا يحتوي على النص المدخل
+    }
+  });
+}
+
+
+//الخروج من المستخدم
+function closeCustomerDetails() {
+    document.getElementById('customerDetails').style.display = 'none';
+    selectedCustomer = null;
+}
+
+
+//زر طباعة الديون
+
+
+function printDiv(id) {
+  const container = document.getElementById(id);
+  const elements = container.querySelectorAll('span, small');
+  
+  // الحصول على اسم المستخدم من العنصر h3
+  const customerNameElement = document.getElementById('selectedCustomerName');
+  const customerName = customerNameElement ? customerNameElement.textContent : '';
+
+  let content = `
+    <style>
+      .customer-name {
+        text-align: center;
+        font-size: 20px;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #000;
+        padding-bottom: 10px;
+      }
+      .print-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 10px 0;
+        width: 100%;
+      }
+      .print-row span {
+        font-size: 16px;
+        flex-grow: 1;
+      }
+      .print-row small {
+        color: #666;
+        margin-left: 100px;
+        white-space: nowrap;
+      }
+    </style>
+    <div class="customer-name">${customerName}</div>
+  `;
+
+  // إضافة العناصر
+  for (let i = 0; i < elements.length; i += 2) {
+    content += `
+      <div class="print-row">
+        ${elements[i].outerHTML}
+        ${elements[i + 1]?.outerHTML || ''}
+      </div>
+    `;
+  }
+
+  // محاولة فتح نافذة الطباعة
+  const printWindow = window.open('', '', 'height=700,width=900');
+
+  // إذا تم حظر النافذة المنبثقة
+  if (!printWindow) {
+    alert("تم حظر النوافذ المنبثقة من المتصفح. من فضلك، قم بتمكين النوافذ المنبثقة لهذا الموقع.\n\nإليك كيفية تمكين النوافذ المنبثقة:\n\n1. في متصفح Chrome: اذهب إلى إعدادات > الخصوصية والأمان > إعدادات المواقع > النوافذ المنبثقة والإعلانات > إضافة الموقع إلى قائمة السماح.\n2. في متصفح Firefox: اذهب إلى إعدادات > الخصوصية والأمان > النوافذ المنبثقة > السماح بالنوافذ المنبثقة لهذا الموقع.");
+    return;
+  }
+
+  // كتابة المحتوى في نافذة الطباعة
+  printWindow.document.open();
+  printWindow.document.write(content);
+  printWindow.document.close();
+
+  // الطباعة وإغلاق النافذة
+  printWindow.onload = function () {
+    printWindow.print();
+    printWindow.close();
+  };
+}
+
+
+
+
+
+
+
+
+
+
+
+//شاشة التحميل
+const loader = document.getElementById('loader');
+const dashboard = document.getElementById('dashboard');
+
+// إنشاء المراقب
+const observer = new MutationObserver(() => {
+  const displayStyle = window.getComputedStyle(dashboard).display;
+
+  if (displayStyle === 'grid') {
+    // إخفاء اللودر عندما يصبح الداشبورد grid
+    setTimeout(() => {
+    loader.style.display = 'none';
+
+  }, 500); // نفس مدة transition
+  }
+});
+
+
+// إعدادات المراقبة (نراقب تغيّر الـ style attribute)
+observer.observe(dashboard, { attributes: true, attributeFilter: ['style'] });
+
+
+// اظهار DATA-INFO
+function showContent1() {
+            // إخفاء جميع العناصر
+            document.getElementById("content1").style.display = 'flex';
+            document.getElementById("content2").style.display = 'none';
+            document.getElementById("customerDetails").style.display = 'none';
+
+
+            // إظهار العنصر المطلوب
+        }
+// اظهار menu2
+function showContent2() {
+            // إخفاء جميع العناصر
+            document.getElementById("content2").style.display = 'block';
+            document.getElementById("content1").style.display = 'none';
+
+
+            // إظهار العنصر المطلوب
+        }
+
+
+
+
+
+  </script>
+
+    <!-- تضمين ملف JavaScript الخاص بـ iziToast -->
+    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
+    
+  </body>
+  <script type="module" src="new.js"></script>
+  
+</html>
